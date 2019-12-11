@@ -12,8 +12,13 @@ from bs4 import BeautifulSoup
 import os
 import pandas as pd
 
-
+############## Specify your conference and keywords here ##########################
+######## This script only works for CVPR and other CVF openaccess conferences #####
 conf_list = ['CVPR2019','CVPR2018','CVPR2017','CVPR2016','ICCV2017','ECCV2018','ECCV2016']
+keywords = ['unsupervise','self-supervise']
+combine_method = 'and'
+################################################################################
+
 for this_conf in conf_list:
     url_input = 'http://openaccess.thecvf.com/%s.py' % this_conf
     url_root = 'http://openaccess.thecvf.com/'
@@ -68,9 +73,8 @@ for this_conf in conf_list:
             print('failed')
     
     # keyword
-    save_dir = '/eecf/cbcsl/data100b/Qianli/pythia/result/%s' % this_conf
-    keywords = ['active learning']
-    combine_method = 'and'
+    save_dir = '../result/%s' % this_conf
+
     folder_name = save_dir+'-'+('-'+combine_method+'-').join(keywords)
     if not os.path.isdir(folder_name):
         os.makedirs(folder_name)

@@ -12,6 +12,13 @@ from bs4 import BeautifulSoup
 import os
 import pandas as pd
 
+############## Specify your conference and keywords here #######################
+######## This script only works for ICML and other PMLR listed conferences #####
+conf_list = ['ICML 2016']
+keywords = ['unsupervise','self-supervise']
+combine_method = 'or'
+################################################################################
+
 
 url_input = 'http://proceedings.mlr.press/'
 r = requests.get(url_input)
@@ -23,9 +30,6 @@ links = soup.find_all('li')
 all_vol_url = [s.find('a').get('href') for s in links if s.find('a') is not None]
 all_vol_text = [s.get_text() for s in links if s.find('a') is not None]
 
-conf_list = ['ICML 2016']
-keywords = ['unsupervise','self-supervise']
-combine_method = 'or'
 
 for this_conf in conf_list:
     this_conf_subpage = all_vol_url[[ind for ind, s in enumerate(all_vol_text) if this_conf in s][0]]
